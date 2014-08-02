@@ -1,3 +1,4 @@
+/*global define*/
 /*!
  * ajaxRetry
  * https://github.com/gdibble/ajaxretry
@@ -6,13 +7,14 @@
 (function (define) { define(function (require, exports, module) { //'use strict';
 
 
-var _$ajax   = $.ajax;
-var _        = require('underscore');
-//Defaults that can be overridden via set
-var settings = {
-  base:         2.718281828,
-  y:            0.25,
-  retryCount:   3
+var _, _$ajax, settings;
+
+_        = require('underscore');
+_$ajax   = $.ajax;
+settings = { //Defaults that can be overridden via set
+  base:       2.718281828,
+  y:          0.25,
+  retryCount: 3
 };
 
 //-----------------------------------------------------------------------------
@@ -28,14 +30,17 @@ function setOptions(options) {
   settings = options;
 }
 
-//returns delay in milliseconds
+//delay in milliseconds
 function exponentialDelay(x) {
   return (Math.pow(settings.base, x) - settings.y) * 1000;
 }
 
 //hit retry limit
 function exhausted() {
-  var args = Array.prototype.slice.call(arguments, 0);
+  var args;
+
+  args = Array.prototype.slice.call(arguments, 0);
+
   _.extend(args[0], this);
   // console.log('exhausted', this.url);
   if (this.hasOwnProperty('exhaust')) {
@@ -46,7 +51,10 @@ function exhausted() {
 
 //recurse the ajax request
 function ajaxRetry(jqXHR) {
-  var self = this;
+  var self;
+
+  self = this;
+
   if (this.hasOwnProperty('retries')) {
     this.recursed = this.recursed === undefined ? 0 : this.recursed + 1;
     if ((jqXHR && jqXHR.status < 500) || this.recursed >= this.retries) {
@@ -79,6 +87,7 @@ function sliceArguments() {
 //extend for retry functionality:
 $.ajax = function (options) {
   var args;
+
   if (typeof options === 'string') {
     arguments[1].url = options; //in this case, options is actually the url passed to $.get/$.post
     args = sliceArguments(arguments[1]);
@@ -87,6 +96,7 @@ $.ajax = function (options) {
     args = sliceArguments(arguments);
     extender(args, options);
   }
+
   return _$ajax.apply($, args);
 };
 
