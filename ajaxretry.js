@@ -2,7 +2,7 @@
 /*!
  * ajaxRetry
  * https://github.com/gdibble/ajaxretry
- * Copyright 2014 Gabriel Dibble; Licensed MIT
+ * Copyright 2015 Gabriel Dibble; Licensed MIT
  */
 (function (define) { define(function (require, exports, module) { //'use strict';
 
