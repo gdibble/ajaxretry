@@ -21,12 +21,7 @@
     "ajax",
     "retry"
   ],
-  "license": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/gdibble/ajaxretry/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "main": "ajaxretry.min.js",
   "repository": {
     "type": "git",
